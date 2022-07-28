@@ -1,0 +1,2 @@
+class OrderError < StandardError
+end
