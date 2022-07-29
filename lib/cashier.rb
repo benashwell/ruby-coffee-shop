@@ -9,12 +9,8 @@ class Cashier
   end
 
   def take_customers_order(customers_name)
-    if customers_name.nil? || customers_name.empty?
-      raise OrderError.new
-    end
-
-    @orders.add_order(Order.new(customers_name))
-    return true
+    order = @orders.add_order(customers_name)
+    return order.id
   end
 
 end
