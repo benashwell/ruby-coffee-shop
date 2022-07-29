@@ -1,4 +1,5 @@
 require "order"
+require 'order_error'
 
 class Orders
   attr_reader :orders
@@ -8,6 +9,10 @@ class Orders
   end
 
   def add_order(order)
+    if order.nil?
+      raise OrderError.new
+    end
+
     @orders << order
   end
 
@@ -19,16 +24,6 @@ class Orders
     return get_orders_by_status("PROCESSED")
   end
 
-  def get_orders_by_status(status)
-    processing_orders = []
-    @orders.each do |order|
-      if order.status == status
-        processing_orders << order
-      end
-    end
-    return processing_orders
-  end
-
   def get_next_pending_order
     return @orders.detect { |order| order.status == "PENDING" }
   end
@@ -37,5 +32,16 @@ class Orders
     index = @orders.index(order)
     order.status = new_status
     @orders[index] = order
+  end
+
+  private
+  def get_orders_by_status(status)
+    found_orders = []
+    @orders.each do |order|
+      if order.status == status
+        found_orders << order
+      end
+    end
+    return found_orders
   end
 end

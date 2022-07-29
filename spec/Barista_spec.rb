@@ -15,7 +15,7 @@ describe ".begin_processing_next_order" do
     end
   end
 
-  context "only processed orders in queue" do
+  context "only processed order is in queue" do
     it "processes no orders" do
       @orders.add_order(Order.new("Ben", "PROCESSED"))
       @barista.begin_processing_next_order
@@ -23,8 +23,8 @@ describe ".begin_processing_next_order" do
     end
   end
 
-  context "pending order are moved to processing" do
-    it "orders is being processed" do
+  context "pending order is moved to processing" do
+    it "order is being processed" do
       @orders.add_order(Order.new("Ben", "PENDING"))
       @barista.begin_processing_next_order
       expect(@barista.currently_processing_order.customers_name).to eq("Ben")
@@ -48,7 +48,7 @@ describe ".complete_current_order" do
   end
 
   context "current order processed" do
-    it "calls customer by name" do
+    it "calls the customer by name" do
       order = Order.new("Ben", "PROCESSING")
       @orders.add_order(order)
       @barista.currently_processing_order = order
@@ -59,7 +59,7 @@ describe ".complete_current_order" do
   end
 
   context "current order processed" do
-    it "processes no orders" do
+    it "order status changes to processed" do
       order = Order.new("Ben", "PROCESSING")
       @orders.add_order(order)
       @barista.currently_processing_order = order
