@@ -1,7 +1,7 @@
 class Order
   attr_accessor :customers_name, :status
 
-  def initialize(name, status = "PENDING")
+  def initialize(name, status = OrderStatus::PENDING)
     @customers_name = name
     @status = status
   end

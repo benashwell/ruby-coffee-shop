@@ -1,5 +1,6 @@
 require "order"
 require 'order_error'
+require 'order_status'
 
 class Orders
   attr_reader :orders
@@ -17,15 +18,15 @@ class Orders
   end
 
   def get_processing_orders
-    return get_orders_by_status("PROCESSING")
+    return get_orders_by_status(OrderStatus::PROCESSING)
   end
 
   def get_processed_orders
-    return get_orders_by_status("PROCESSED")
+    return get_orders_by_status(OrderStatus::PROCESSED)
   end
 
   def get_next_pending_order
-    return @orders.detect { |order| order.status == "PENDING" }
+    return @orders.detect { |order| order.status == OrderStatus::PENDING }
   end
 
   def update_order_status(order, new_status)

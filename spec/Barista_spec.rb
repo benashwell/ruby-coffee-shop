@@ -1,6 +1,7 @@
 require "orders"
 require "order"
 require "barista"
+require "order_status"
 
 describe ".begin_processing_next_order" do
   before(:each) do
@@ -17,18 +18,18 @@ describe ".begin_processing_next_order" do
 
   context "only processed order is in queue" do
     it "processes no orders" do
-      @orders.add_order(Order.new("Ben", "PROCESSED"))
+      @orders.add_order(Order.new("Ben", OrderStatus::PROCESSED))
       @barista.begin_processing_next_order
       expect(@barista.currently_processing_order).to be_nil
     end
   end
 
   context "pending order is moved to processing" do
-    it "order is being processed" do
-      @orders.add_order(Order.new("Ben", "PENDING"))
+    it "order is now processing" do
+      @orders.add_order(Order.new("Ben", OrderStatus::PENDING))
       @barista.begin_processing_next_order
       expect(@barista.currently_processing_order.customers_name).to eq("Ben")
-      expect(@barista.currently_processing_order.status).to eq("PROCESSING")
+      expect(@barista.currently_processing_order.status).to eq(OrderStatus::PROCESSING)
     end
   end
 end
@@ -49,7 +50,7 @@ describe ".complete_current_order" do
 
   context "current order processed" do
     it "calls the customer by name" do
-      order = Order.new("Ben", "PROCESSING")
+      order = Order.new("Ben", OrderStatus::PROCESSED)
       @orders.add_order(order)
       @barista.currently_processing_order = order
       expect do
@@ -58,16 +59,16 @@ describe ".complete_current_order" do
     end
   end
 
-  context "current order processed" do
+  context "current order processing" do
     it "order status changes to processed" do
-      order = Order.new("Ben", "PROCESSING")
+      order = Order.new("Ben", OrderStatus::PROCESSING)
       @orders.add_order(order)
       @barista.currently_processing_order = order
       @barista.complete_current_order
       expect(@barista.currently_processing_order).to eq(order)
       expect(@orders.get_processed_orders.length).to eq(1)
       expect(@orders.get_processed_orders[0].customers_name).to eq("Ben")
-      expect(@orders.get_processed_orders[0].status).to eq("PROCESSED")
+      expect(@orders.get_processed_orders[0].status).to eq(OrderStatus::PROCESSED)
     end
   end
 end
@@ -86,7 +87,7 @@ describe ".process_order" do
 
   context "order to process" do
     it "order is processed" do
-      order = Order.new("Ben", "PROCESSING")
+      order = Order.new("Ben", OrderStatus::PROCESSING)
       expect do
         @barista.process_order(order)
       end.to output("making order for Ben\n").to_stdout
