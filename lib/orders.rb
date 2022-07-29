@@ -9,12 +9,14 @@ class Orders
     @orders = []
   end
 
-  def add_order(order)
-    if order.nil?
+  def add_order(customer_name, order_status = OrderStatus::PENDING)
+    if customer_name.nil? || customer_name.empty?
       raise OrderError.new
     end
 
+    order = Order.new(customer_name, order_status)
     @orders << order
+    return order
   end
 
   def get_processing_orders
