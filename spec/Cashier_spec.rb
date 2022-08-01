@@ -1,16 +1,17 @@
 require "cashier"
 require "order_error"
-require "orders"
+require "orders_list"
 require "invalid_beverage_error"
+require 'orders/domain/order'
 
 def get_order(id = nil, name)
-  order = Order.new(name)
+  order = Orders::Domain::Order.new(customers_name: name)
   order.id = id
   return order
 end
 
 describe ".start_customers_order" do
-  let(:orders) {instance_double(Orders)}
+  let(:orders) {instance_double(OrdersList)}
 
   before(:each) do
     @cashier = Cashier.new(orders)
@@ -26,7 +27,7 @@ describe ".start_customers_order" do
 end
 
 describe ".add_beverage_to_order" do
-  let(:orders) {instance_double(Orders)}
+  let(:orders) {instance_double(OrdersList)}
 
   before(:each) do
     @cashier = Cashier.new(orders)

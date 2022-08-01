@@ -1,10 +1,9 @@
-require "orders"
-require "order"
+require "orders_list"
 require 'order_error'
 
 describe ".add_order" do
   before(:each) do
-    @orders = Orders.new
+    @orders = OrdersList.new
   end
 
   context "add an order with no customer name" do
@@ -33,18 +32,4 @@ describe ".add_order" do
     end
   end
 
-  context "add an order with a name" do
-    it "returns order with an id" do
-      order = @orders.add_order("Ben")
-      expect( order.id).to_not be_nil
-    end
-  end
-
-  context "add multiple successful orders" do
-    it "have multiple orders with different ids" do
-      order = @orders.add_order("Ben")
-      order2 = @orders.add_order("Steve")
-      expect( order.id).to_not eq(order2.id)
-    end
-  end
 end

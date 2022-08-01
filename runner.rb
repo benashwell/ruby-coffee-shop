@@ -1,10 +1,10 @@
-require 'orders'
+require 'orders_list'
 require 'cashier'
 require 'barista'
 require 'coffee'
 
 def main
-  orders = Orders.new
+  orders = OrdersList.new
   cashier = Cashier.new(orders)
   barista = Barista.new(orders)
 

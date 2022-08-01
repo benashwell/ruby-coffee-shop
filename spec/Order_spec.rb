@@ -1,10 +1,10 @@
-require 'order'
 require 'coffee'
 require 'invalid_beverage_error'
+require 'orders/domain/order'
 
 describe ".add_beverage" do
   before(:each) do
-    @order = Order.new("Ben")
+    @order = Orders::Domain::Order.new(customers_name: "Ben")
   end
 
   context "add an empty beverage to order" do

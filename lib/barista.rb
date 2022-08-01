@@ -1,4 +1,4 @@
-require "orders"
+require "orders_list"
 require 'order_status'
 class Barista
   attr_accessor :currently_processing_order
@@ -19,13 +19,5 @@ class Barista
       puts("Order for " + @currently_processing_order.customers_name + " ready!")
       @orders.update_order_status(@currently_processing_order, OrderStatus::PROCESSED)
     end
-  end
-
-  def process_order(order)
-    if order.nil?
-      raise OrderError.new
-    end
-
-    order.process_order
   end
 end

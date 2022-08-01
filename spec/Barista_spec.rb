@@ -1,11 +1,11 @@
-require "orders"
-require "order"
+require "orders_list"
 require "barista"
 require "order_status"
+require 'orders/domain/order'
 
 describe ".begin_processing_next_order" do
   before(:each) do
-    @orders = Orders.new
+    @orders = OrdersList.new
     @barista = Barista.new(@orders)
   end
 
@@ -36,7 +36,7 @@ end
 
 describe ".complete_current_order" do
   before(:each) do
-    @orders = Orders.new
+    @orders = OrdersList.new
     @barista = Barista.new(@orders)
   end
 
@@ -66,28 +66,6 @@ describe ".complete_current_order" do
       expect(@orders.get_processed_orders.length).to eq(1)
       expect(@orders.get_processed_orders[0].customers_name).to eq("Ben")
       expect(@orders.get_processed_orders[0].status).to eq(OrderStatus::PROCESSED)
-    end
-  end
-end
-
-describe ".process_order" do
-  before(:each) do
-    @orders = Orders.new
-    @barista = Barista.new(@orders)
-  end
-
-  context "order not provided" do
-    it "order error raised" do
-      expect { @barista.process_order(nil) }.to raise_error(OrderError)
-    end
-  end
-
-  context "order to process" do
-    it "order is processed" do
-      order = Order.new("Ben", OrderStatus::PROCESSING)
-      expect do
-        @barista.process_order(order)
-      end.to output("making order for Ben\n").to_stdout
     end
   end
 end

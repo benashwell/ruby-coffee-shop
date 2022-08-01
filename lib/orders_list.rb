@@ -1,8 +1,8 @@
-require "order"
 require 'order_error'
 require 'order_status'
+require 'orders/domain/order'
 
-class Orders
+class OrdersList
   attr_reader :orders
 
   def initialize
@@ -18,7 +18,7 @@ class Orders
       raise OrderError.new
     end
 
-    order = Order.new(customer_name, order_status)
+    order = Orders::Domain::Order.new(customers_name: customer_name, status: order_status)
     @orders << order
     return order
   end

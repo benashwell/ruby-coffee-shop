@@ -1,7 +1,6 @@
 require "order_error"
 require 'invalid_beverage_error'
-require "orders"
-require "order"
+require "orders_list"
 
 class Cashier
 
