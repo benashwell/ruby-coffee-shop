@@ -9,6 +9,10 @@ class Orders
     @orders = []
   end
 
+  def get_order(order_id)
+    return @orders.detect { |order| order.id == order_id }
+  end
+
   def add_order(customer_name, order_status = OrderStatus::PENDING)
     if customer_name.nil? || customer_name.empty?
       raise OrderError.new

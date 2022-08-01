@@ -1,0 +1,2 @@
+class InvalidBeverageError < StandardError
+end
