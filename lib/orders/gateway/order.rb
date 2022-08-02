@@ -27,6 +27,20 @@ module Orders
 
         return @orders.detect { |order| order.id == order_id }
       end
+
+      def get_orders_by_status(attributes)
+        found_orders = []
+        @orders.each do |order|
+          break if found_orders.length >= attributes.count
+          found_orders << order if order.status == attributes[:status]
+        end
+        return found_orders
+      end
+
+      def update_order(order)
+        existing_order = get_order(order.id)
+        @orders[@orders.index(existing_order)] = order
+      end
     end
   end
 end

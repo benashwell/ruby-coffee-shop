@@ -50,4 +50,48 @@ describe Orders::Gateway::Order do
       }
     end
   end
+
+  context 'when getting an order by status' do
+    before(:each) do
+      @under_test = described_class.new
+    end
+
+    subject do
+      @under_test.get_orders_by_status(
+        status: status,
+        count: count
+      )
+    end
+
+    context 'when an order exists with that status and we want just one' do
+      let(:status) { OrderStatus::PENDING }
+      let(:count) { 1 }
+      it {
+        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        expect(subject.length).to eq(1)
+        expect(subject[0].customers_name).to eq("Ben")
+        expect(subject[0].status).to eq(OrderStatus::PENDING)
+      }
+    end
+
+    context 'when an order exists with that status and we want just more than one' do
+      let(:status) { OrderStatus::PENDING }
+      let(:count) { 2 }
+      it {
+        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        expect(subject.length).to eq(1)
+        expect(subject[0].customers_name).to eq("Ben")
+        expect(subject[0].status).to eq(OrderStatus::PENDING)
+      }
+    end
+
+    context 'when an order does not exist with that status' do
+      let(:status) { OrderStatus::PROCESSING }
+      let(:count) { 2 }
+      it {
+        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        expect(subject.length).to eq(0)
+      }
+    end
+  end
 end
