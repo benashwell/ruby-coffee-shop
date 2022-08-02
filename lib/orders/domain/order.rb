@@ -18,14 +18,6 @@ module Orders
         @beverages = []
       end
 
-      #todo to be refactored next
-      def add_beverage(beverage)
-        unless beverage.class.ancestors.include?(Beverage)
-          raise InvalidBeverageError.new
-        end
-
-        @beverages << beverage
-      end
     end
   end
 end

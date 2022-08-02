@@ -14,8 +14,8 @@ module Orders
 
       #Implementation of the create customer order use case
       def create_customer_order(request)
-        order_id = gateway.create_order(request.to_h)
-        return Response.new(order_id: order_id)
+        order_id = @gateway.create_order(request.to_h)
+        return Response.new(order_id)
       end
     end
   end

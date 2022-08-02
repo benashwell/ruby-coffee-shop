@@ -1,3 +1,4 @@
+require 'rspec'
 require "orders_list"
 require "barista"
 require "order_status"

@@ -13,10 +13,10 @@ describe Orders::UseCase::CreateCustomerOrder do
     end
 
     context 'call gateway to create the order'do
-      let(:request) { Orders::UseCase::CreateCustomerOrder::Request.new(customers_name: 'Ben')  }
+      let(:request) { Orders::UseCase::CreateCustomerOrder::Request.new('Ben')  }
       it {
         expect(@gateway).to receive(:create_order).and_return(1)
-        is_expected.to eq(Orders::UseCase::CreateCustomerOrder::Response.new(order_id: 1))
+        is_expected.to eq(Orders::UseCase::CreateCustomerOrder::Response.new(1))
       }
     end
 
