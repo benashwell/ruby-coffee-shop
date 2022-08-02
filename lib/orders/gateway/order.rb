@@ -1,4 +1,5 @@
 require 'orders/domain/order'
+require 'orders/domain/order_error'
 
 module Orders
   module Gateway
@@ -39,6 +40,7 @@ module Orders
 
       def update_order(order)
         existing_order = get_order(order.id)
+        raise Orders::Domain::OrderError if existing_order.nil?
         @orders[@orders.index(existing_order)] = order
       end
     end

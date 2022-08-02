@@ -1,6 +1,7 @@
 require 'rspec'
 require 'orders/domain/order_error'
 require 'orders/gateway/order'
+require 'orders/domain/order'
 
 describe Orders::Gateway::Order do
 
@@ -91,6 +92,41 @@ describe Orders::Gateway::Order do
       it {
         @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
         expect(subject.length).to eq(0)
+      }
+    end
+  end
+
+  context 'when updating an order' do
+    before(:each) do
+      @under_test = described_class.new
+    end
+
+    subject do
+      @under_test.update_order(order)
+    end
+
+    context 'order does not exist' do
+      let(:order) {
+        order = Orders::Domain::Order.new(customers_name: "Ben Updated")
+        order.id = 5000
+        return order
+      }
+      it {
+        @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
+        expect{ subject }.to raise_error(Orders::Domain::OrderError)
+      }
+    end
+
+    context 'order name is updated' do
+      let(:order) {
+        order = Orders::Domain::Order.new(customers_name: "Ben Updated")
+        order.id = 1
+        return order
+      }
+      it {
+        @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
+        subject
+        expect(@under_test.get_order(1).customers_name).to eq("Ben Updated")
       }
     end
   end

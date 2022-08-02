@@ -1,3 +1,5 @@
+require 'orders/domain/order_error'
+
 module Orders
   module UseCase
     class UpdateOrderStatus
@@ -11,6 +13,7 @@ module Orders
 
       def update_orders_status(request)
         order = @gateway.get_order(request[:order_id])
+        raise Orders::Domain::OrderError if order.nil?
         order.status = request[:status]
         @gateway.update_order(order)
       end
