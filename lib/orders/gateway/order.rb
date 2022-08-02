@@ -22,7 +22,7 @@ module Orders
 
       def get_order(order_id)
         if order_id.nil?
-          raise OrderError
+          raise Orders::Domain::OrderError
         end
 
         return @orders.detect { |order| order.id == order_id }

@@ -10,8 +10,8 @@ module Orders
       end
 
       def add_beverage_to_order(request)
-        unless request[:beverage].class.ancestors.include?(Beverage)
-          raise InvalidBeverageError.new
+        unless request[:beverage].class.ancestors.include?(Orders::Domain::Beverage)
+          raise Orders::Domain::InvalidBeverageError.new
         end
 
         order = get_order_by_id(request.order_id)
@@ -24,7 +24,7 @@ module Orders
         order = @gateway.get_order(order_id.to_i)
 
         if order.nil?
-          raise OrderError
+          raise Orders::Domain::OrderError
         end
 
         return order

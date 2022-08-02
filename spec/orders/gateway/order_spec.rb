@@ -1,5 +1,5 @@
 require 'rspec'
-require 'order_error'
+require 'orders/domain/order_error'
 require 'orders/gateway/order'
 
 describe Orders::Gateway::Order do
@@ -18,7 +18,7 @@ describe Orders::Gateway::Order do
 
     context 'without a customers name' do
       let(:customers_name) { nil }
-      it { expect {subject }.to raise_error(OrderError) }
+      it { expect {subject }.to raise_error(Orders::Domain::OrderError) }
     end
   end
 
@@ -33,7 +33,7 @@ describe Orders::Gateway::Order do
 
     context 'with a nil order id' do
       let(:order_id) {nil}
-      it { expect{subject}.to raise_error(OrderError) }
+      it { expect{subject}.to raise_error(Orders::Domain::OrderError) }
     end
 
     context 'with an order id that does not exist' do
@@ -64,32 +64,32 @@ describe Orders::Gateway::Order do
     end
 
     context 'when an order exists with that status and we want just one' do
-      let(:status) { OrderStatus::PENDING }
+      let(:status) { Orders::Domain::OrderStatus::PENDING }
       let(:count) { 1 }
       it {
-        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
         expect(subject.length).to eq(1)
         expect(subject[0].customers_name).to eq("Ben")
-        expect(subject[0].status).to eq(OrderStatus::PENDING)
+        expect(subject[0].status).to eq(Orders::Domain::OrderStatus::PENDING)
       }
     end
 
     context 'when an order exists with that status and we want just more than one' do
-      let(:status) { OrderStatus::PENDING }
+      let(:status) { Orders::Domain::OrderStatus::PENDING }
       let(:count) { 2 }
       it {
-        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
         expect(subject.length).to eq(1)
         expect(subject[0].customers_name).to eq("Ben")
-        expect(subject[0].status).to eq(OrderStatus::PENDING)
+        expect(subject[0].status).to eq(Orders::Domain::OrderStatus::PENDING)
       }
     end
 
     context 'when an order does not exist with that status' do
-      let(:status) { OrderStatus::PROCESSING }
+      let(:status) { Orders::Domain::OrderStatus::PROCESSING }
       let(:count) { 2 }
       it {
-        @under_test.create_order(customers_name: "Ben", status: OrderStatus::PENDING)
+        @under_test.create_order(customers_name: "Ben", status: Orders::Domain::OrderStatus::PENDING)
         expect(subject.length).to eq(0)
       }
     end

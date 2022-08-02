@@ -1,5 +1,5 @@
-require 'order_status'
-require 'order_error'
+require 'orders/domain/order_status'
+require 'orders/domain/order_error'
 
 module Orders
   module Domain
