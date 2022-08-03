@@ -1,9 +1,9 @@
 require 'rspec'
 require 'orders/domain/order_error'
-require 'orders/gateway/order'
+require 'orders/gateway/in_memory_order'
 require 'orders/domain/order'
 
-describe Orders::Gateway::Order do
+describe Orders::Gateway::InMemoryOrder do
 
   context 'when create order' do
     subject do

@@ -1,10 +1,10 @@
 require 'rspec'
 require 'orders/use_case/create_customer_order'
-require 'orders/gateway/order'
+require 'orders/gateway/in_memory_order'
 
 describe Orders::UseCase::CreateCustomerOrder do
   before do
-    @gateway = instance_double(Orders::Gateway::Order)
+    @gateway = instance_double(Orders::Gateway::InMemoryOrder)
   end
 
   context 'when creating a customer order' do

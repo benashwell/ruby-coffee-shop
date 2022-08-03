@@ -1,12 +1,12 @@
 require 'rspec'
 require 'orders/domain/order'
-require 'orders/gateway/order'
+require 'orders/gateway/in_memory_order'
 require 'orders/use_case/get_orders_by_status'
 require 'orders/domain/order_status'
 
 describe Orders::UseCase::GetOrdersByStatus do
   before do
-    @gateway = instance_double(Orders::Gateway::Order)
+    @gateway = instance_double(Orders::Gateway::InMemoryOrder)
   end
 
   context 'when getting orders list by status' do

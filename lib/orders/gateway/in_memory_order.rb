@@ -3,12 +3,12 @@ require 'orders/domain/order_error'
 
 module Orders
   module Gateway
-    class Order
+    class InMemoryOrder
 
       def initialize
         @orders = Array.new
 
-        #Order count for ID population
+        #InMemoryOrder count for ID population
         @order_count = 1
       end
 

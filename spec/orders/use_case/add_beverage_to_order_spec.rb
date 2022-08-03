@@ -1,12 +1,12 @@
 require 'rspec'
 require 'orders/use_case/add_beverage_to_order'
-require 'orders/gateway/order'
+require 'orders/gateway/in_memory_order'
 require 'orders/domain/order'
 require 'orders/domain/coffee'
 
 describe Orders::UseCase::AddBeverageToOrder do
   before do
-    @gateway = instance_double(Orders::Gateway::Order)
+    @gateway = instance_double(Orders::Gateway::InMemoryOrder)
   end
 
   context 'when adding a beverage to a customer order' do

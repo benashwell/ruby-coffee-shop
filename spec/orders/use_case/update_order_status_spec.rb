@@ -4,7 +4,7 @@ require 'orders/domain/order_error'
 
 describe Orders::UseCase::UpdateOrderStatus do
   before do
-    @gateway = instance_double(Orders::Gateway::Order)
+    @gateway = instance_double(Orders::Gateway::InMemoryOrder)
   end
 
   context 'updating an orders status' do
