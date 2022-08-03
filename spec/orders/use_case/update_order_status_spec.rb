@@ -9,7 +9,7 @@ describe Orders::UseCase::UpdateOrderStatus do
 
   context 'updating an orders status' do
     subject do
-      described_class.new(gateway: @gateway).update_orders_status(request)
+      described_class.new(@gateway).update_orders_status(request)
     end
 
     context 'when the order does not exist' do

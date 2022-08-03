@@ -8,7 +8,7 @@ module Orders
       attr_reader :gateway
 
       #Take gateway as a parameter so as long as it has the create_order method we dont care what the implementation is
-      def initialize(gateway: Gateway::InMemoryOrder.new)
+      def initialize(gateway)
         @gateway = gateway
       end
 

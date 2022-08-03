@@ -11,7 +11,7 @@ describe Orders::UseCase::AddBeverageToOrder do
 
   context 'when adding a beverage to a customer order' do
     subject do
-      described_class.new(gateway: @gateway).add_beverage_to_order(request)
+      described_class.new(@gateway).add_beverage_to_order(request)
     end
 
     context 'when cannot find order' do

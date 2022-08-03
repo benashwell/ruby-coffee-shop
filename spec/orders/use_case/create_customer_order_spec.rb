@@ -9,7 +9,7 @@ describe Orders::UseCase::CreateCustomerOrder do
 
   context 'when creating a customer order' do
     subject do
-      described_class.new(gateway: @gateway).create_customer_order(request)
+      described_class.new(@gateway).create_customer_order(request)
     end
 
     context 'call gateway to create the order'do

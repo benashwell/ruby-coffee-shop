@@ -11,7 +11,7 @@ describe Orders::UseCase::GetOrdersByStatus do
 
   context 'when getting orders list by status' do
     subject do
-      described_class.new(gateway: @gateway).get_orders_by_status(request)
+      described_class.new(@gateway).get_orders_by_status(request)
     end
 
     context 'gets a singular order with correct status'do

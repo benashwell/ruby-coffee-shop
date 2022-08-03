@@ -5,7 +5,7 @@ module Orders
 
       attr_reader :gateway
 
-      def initialize(gateway: Gateway::InMemoryOrder.new)
+      def initialize(gateway)
         @gateway = gateway
       end
 
